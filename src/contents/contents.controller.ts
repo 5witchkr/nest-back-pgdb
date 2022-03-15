@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { Content, ContentStatus } from './content.model';
 import { ContentsService } from './contents.service';
 import { CreateContentDto } from './dto/create-content.dto';
@@ -15,6 +15,7 @@ export class ContentsController {
     }
 
     @Post()
+    @UsePipes(ValidationPipe)
     createContent(
         @Body() createContentDto: CreateContentDto
     ): Content {
