@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, UsePipes, Validation
 import { Content, ContentStatus } from './content.model';
 import { ContentsService } from './contents.service';
 import { CreateContentDto } from './dto/create-content.dto';
+import { ContentStatusValidationPipe } from './pipes/content-status-validation.pipe';
 
 
 @Controller('contents')
@@ -38,7 +39,7 @@ export class ContentsController {
     @Patch(':id/status')
     updateContentStatus(
         @Param('id') id: string,
-        @Body('status') status: ContentStatus
+        @Body('status', ContentStatusValidationPipe) status: ContentStatus
     ) {
         return this.contentsService.updateContentStatus(id, status);
     }
