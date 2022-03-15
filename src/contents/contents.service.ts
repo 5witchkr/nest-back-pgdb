@@ -31,7 +31,7 @@ export class ContentsService {
     //id로 content 찾음
     getContentById(id: string): Content {
         const found = this.contents.find((content) => content.id === id);
-        //content-id체크(notfound)
+        //content-id유무체크(notfound)
         if(!found){
             throw new NotFoundException(`${id}를 찾을 수 없습니다.`);
         }
@@ -40,7 +40,9 @@ export class ContentsService {
 
     //삭제 return값을 안줄것이기때문에 void로 줬음
     deleteContent(id: string): void {
-        this.contents = this.contents.filter((content) => content.id !== id);
+        //getContentById로 content-id유무 체크
+        const found = this.getContentById(id);
+        this.contents = this.contents.filter((content) => content.id !== found.id);
     }
 
     //updateStatus
