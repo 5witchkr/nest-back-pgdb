@@ -1,6 +1,8 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { Content } from './content.model';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Content, ContentStatus } from './content.model';
 import { ContentsService } from './contents.service';
+import { CreateContentDto } from './dto/create-content.dto';
+
 
 @Controller('contents')
 export class ContentsController {
@@ -14,9 +16,30 @@ export class ContentsController {
 
     @Post()
     createContent(
-        @Body('title') title: string,
-        @Body('description') description: string
+        @Body() createContentDto: CreateContentDto
     ): Content {
-        return this.contentsService.createContent(title, description);
+        return this.contentsService.createContent(createContentDto);
     }
+
+    //Param 파라미터를(여기서는 id) 가져옴
+    @Get(':id')
+    getContentById(@Param('id') id: string): Content {
+        return this.contentsService.getContentById(id);
+    }
+
+    //delete
+    @Delete(':id')
+    deleteContent(@Param('id') id: string): void {
+        this.contentsService.deleteContent(id);
+    }
+
+    //updateStatus
+    @Patch(':id/status')
+    updateContentStatus(
+        @Param('id') id: string,
+        @Body('status') status: ContentStatus
+    ) {
+        return this.contentsService.updateContentStatus(id, status);
+    }
+
 }
