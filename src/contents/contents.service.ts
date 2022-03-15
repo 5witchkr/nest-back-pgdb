@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Content, ContentStatus } from './content.model';
 import { v1 as uuid } from 'uuid';
 import { CreateContentDto } from './dto/create-content.dto';
@@ -30,7 +30,12 @@ export class ContentsService {
 
     //id로 content 찾음
     getContentById(id: string): Content {
-        return this.contents.find((content) => content.id === id);
+        const found = this.contents.find((content) => content.id === id);
+        //content-id체크(notfound)
+        if(!found){
+            throw new NotFoundException(`${id}를 찾을 수 없습니다.`);
+        }
+        return  found;
     }
 
     //삭제 return값을 안줄것이기때문에 void로 줬음
