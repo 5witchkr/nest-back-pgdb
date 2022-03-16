@@ -1,5 +1,5 @@
 import { ArgumentMetadata, BadRequestException, PipeTransform } from "@nestjs/common";
-import { ContentStatus } from "../content.model";
+import { ContentStatus } from "../content-status.enum";
 
 //status를 PUBLIC과 PRIVATE만 올수있게 해주고 이외의값이면 에러를 보내주는 pipe
 export class ContentStatusValidationPipe implements PipeTransform {
@@ -22,5 +22,5 @@ export class ContentStatusValidationPipe implements PipeTransform {
         const index = this.StatusOptions.indexOf(status);
         return index !== -1
     }
-    
+
 }
