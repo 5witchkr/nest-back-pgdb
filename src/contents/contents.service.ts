@@ -33,27 +33,12 @@ export class ContentsService {
     //     this.contents.push(content);
     //     return content;
     // }
-    async createContent(createContentDto: CreateContentDto): Promise<Content> {
-        const {title, description} = createContentDto;
-
-        const content = this.contentRepository.create({
-            title,
-            description,
-            status: ContentStatus.PUBLIC
-        })
-        await this.contentRepository.save(content);
-        return content;
+    createContent(createContentDto: CreateContentDto): Promise<Content> {
+        //repository패턴에서 create를 가져옴
+        return this.contentRepository.createContent(createContentDto);
     }
 
-    async getContentById(id: number): Promise <Content> {
-        const found = await this.contentRepository.findOne(id)
-
-        if(!found) {
-            throw new NotFoundException(`Can't find Content with id ${id}`);
-        }
-        return found;
-    }
-    // //id로 content 찾음
+        // //id로 content 찾음
     // getContentById(id: string): Content {
     //     const found = this.contents.find((content) => content.id === id);
     //     //content-id유무체크(notfound)
@@ -62,6 +47,14 @@ export class ContentsService {
     //     }
     //     return  found;
     // }
+    async getContentById(id: number): Promise <Content> {
+        const found = await this.contentRepository.findOne(id)
+
+        if(!found) {
+            throw new NotFoundException(`Can't find Content with id ${id}`);
+        }
+        return found;
+    }
 
     // //삭제 return값을 안줄것이기때문에 void로 줬음
     // deleteContent(id: string): void {
