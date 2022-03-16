@@ -22,5 +22,5 @@ export class ContentStatusValidationPipe implements PipeTransform {
         const index = this.StatusOptions.indexOf(status);
         return index !== -1
     }
-
+    
 }
