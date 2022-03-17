@@ -19,6 +19,10 @@ export class ContentsService {
     // getAllContents(): Content[] {
     //     return this.contents;
     // }
+    //모두 가져오니까 배열형태[] 타입, find()에 아무것도 안넣어주면 다 가져옴
+    async getAllContents(): Promise <Content[]> {
+        return this.contentRepository.find();
+    }
 
     // createContent(createContentDto: CreateContentDto) {
     //     const { title, description } = createContentDto

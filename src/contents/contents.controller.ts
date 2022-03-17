@@ -15,6 +15,10 @@ export class ContentsController {
     // getAllContent(): Content[]{
     //     return this.contentsService.getAllContents();
     // }
+    @Get()
+    getAllContent(): Promise<Content[]> {
+        return this.contentsService.getAllContents();
+    }
 
     // @Post()
     // @UsePipes(ValidationPipe)
