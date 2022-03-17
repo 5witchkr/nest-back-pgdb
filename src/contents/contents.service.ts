@@ -62,6 +62,13 @@ export class ContentsService {
     //     const found = this.getContentById(id);
     //     this.contents = this.contents.filter((content) => content.id !== found.id);
     // }
+    async deleteContent(id: number): Promise<void> {
+        const result = await this.contentRepository.delete(id);
+        //해당id가 없으면 에러메시지반환
+        if (result.affected === 0) {
+            throw new NotFoundException(`Can't find Content with id ${id}`)
+        }
+    }
 
     // //updateStatus
     // updateContentStatus(id: string, status: ContentStatus): Content {

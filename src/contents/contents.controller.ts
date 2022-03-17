@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ContentStatus } from './content-status.enum';
 import { Content } from './content.entity';
 import { ContentsService } from './contents.service';
@@ -44,6 +44,11 @@ export class ContentsController {
     // deleteContent(@Param('id') id: string): void {
     //     this.contentsService.deleteContent(id);
     // }
+
+    @Delete(':id')
+    deleteContent(@Param('id', ParseIntPipe) id): Promise<void> {
+        return this.contentsService.deleteContent(id);
+    }
 
     // //updateStatus
     // @Patch(':id/status')
