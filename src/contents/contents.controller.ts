@@ -50,13 +50,13 @@ export class ContentsController {
         return this.contentsService.deleteContent(id);
     }
 
-    // //updateStatus
-    // @Patch(':id/status')
-    // updateContentStatus(
-    //     @Param('id') id: string,
-    //     @Body('status', ContentStatusValidationPipe) status: ContentStatus
-    // ) {
-    //     return this.contentsService.updateContentStatus(id, status);
-    // }
+    //updateStatus parseintpipe는 파이프
+    @Patch(':id/status')
+    updateContentStatus(
+        @Param('id', ParseIntPipe) id: number,
+        @Body('status', ContentStatusValidationPipe) status: ContentStatus
+    ) {
+        return this.contentsService.updateContentStatus(id, status);
+    }
 
 }

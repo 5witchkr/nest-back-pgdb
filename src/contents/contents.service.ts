@@ -76,4 +76,10 @@ export class ContentsService {
     //     content.status = status;
     //     return content;
     // }
+    async updateContentStatus(id: number, status: ContentStatus): Promise<Content> {
+        const content = await this.getContentById(id);
+        content.status = status;
+        await this.contentRepository.save(content);
+        return content;
+    }
 }
