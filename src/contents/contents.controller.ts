@@ -24,6 +24,14 @@ export class ContentsController {
         return this.contentsService.getAllContents();
     }
 
+    //해당 유저만 가져오기
+    @Get('user')
+    getUserContent(
+        @GetUser() user: User
+    ): Promise<Content[]> {
+        return this.contentsService.getUserContents(user);
+    }
+
     // @Post()
     // @UsePipes(ValidationPipe)
     // createContent(

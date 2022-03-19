@@ -25,6 +25,22 @@ export class ContentsService {
         return this.contentRepository.find();
     }
 
+
+    //해당유저의 게시글만 가져오는기능
+    async getUserContents(
+        user: User
+    ): Promise <Content[]> {
+        //대부분 repository api를 사용하여 구현할수있지만,
+        //복잡한 기능을 구현할때는 queryBuilder를 사용 (typeorm 사이트 참고)
+        const query = this.contentRepository.createQueryBuilder('content');
+
+        query.where('content.userId = :userId', {userId: user.id});
+
+        const contents = await query.getMany();
+
+        return contents;
+    }
+
     // createContent(createContentDto: CreateContentDto) {
     //     const { title, description } = createContentDto
     //     const content: Content = {
