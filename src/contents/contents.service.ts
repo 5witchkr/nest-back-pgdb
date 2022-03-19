@@ -5,6 +5,7 @@ import { CreateContentDto } from './dto/create-content.dto';
 import { ContentRepository } from './content.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Content } from './content.entity';
+import { User } from 'src/auth/user.entity';
 
 
 @Injectable()
@@ -37,9 +38,9 @@ export class ContentsService {
     //     this.contents.push(content);
     //     return content;
     // }
-    createContent(createContentDto: CreateContentDto): Promise<Content> {
+    createContent(createContentDto: CreateContentDto, user: User): Promise<Content> {
         //repository패턴에서 create를 가져옴
-        return this.contentRepository.createContent(createContentDto);
+        return this.contentRepository.createContent(createContentDto, user);
     }
 
         // //id로 content 찾음

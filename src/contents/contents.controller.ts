@@ -1,5 +1,7 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/auth/get-user.decorator';
+import { User } from 'src/auth/user.entity';
 import { ContentStatus } from './content-status.enum';
 import { Content } from './content.entity';
 import { ContentsService } from './contents.service';
@@ -31,8 +33,9 @@ export class ContentsController {
     // }
     @Post()
     @UsePipes(ValidationPipe)
-    createContent(@Body() createContentDto: CreateContentDto): Promise<Content> {
-        return this.contentsService.createContent(createContentDto)
+    createContent(@Body() createContentDto: CreateContentDto,
+    @GetUser() user: User): Promise<Content> {
+        return this.contentsService.createContent(createContentDto, user);
     }
 
     // //Param 파라미터를(여기서는 id) 가져옴
