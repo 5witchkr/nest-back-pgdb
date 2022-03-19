@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Logger, Param, ParseIntPipe, Patch, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
 import { User } from 'src/auth/user.entity';
@@ -12,6 +12,8 @@ import { ContentStatusValidationPipe } from './pipes/content-status-validation.p
 @Controller('contents')
 @UseGuards(AuthGuard())
 export class ContentsController {
+    //log
+    private logger = new Logger('ContentsController');
     //private(접근제한자)를써서 암묵적으로 프로퍼티로 선언되어서 메소드를 사용할수있게만들어줌
     constructor(private contentsService: ContentsService) {}
 
@@ -21,6 +23,7 @@ export class ContentsController {
     // }
     @Get()
     getAllContent(): Promise<Content[]> {
+        this.logger.verbose(`User trying to get all contents`);
         return this.contentsService.getAllContents();
     }
 
@@ -29,6 +32,7 @@ export class ContentsController {
     getUserContent(
         @GetUser() user: User
     ): Promise<Content[]> {
+        this.logger.verbose(`User ${user.username} trying to get user-contents`);
         return this.contentsService.getUserContents(user);
     }
 
@@ -43,6 +47,8 @@ export class ContentsController {
     @UsePipes(ValidationPipe)
     createContent(@Body() createContentDto: CreateContentDto,
     @GetUser() user: User): Promise<Content> {
+        this.logger.verbose(`User ${user.username} creating a new content.
+        Payload: ${JSON.stringify(createContentDto)}`);
         return this.contentsService.createContent(createContentDto, user);
     }
 
