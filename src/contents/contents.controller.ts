@@ -61,10 +61,11 @@ export class ContentsController {
     // deleteContent(@Param('id') id: string): void {
     //     this.contentsService.deleteContent(id);
     // }
-
+    //GetUser 토큰에서 유저정보를 가져옴
     @Delete(':id')
-    deleteContent(@Param('id', ParseIntPipe) id): Promise<void> {
-        return this.contentsService.deleteContent(id);
+    deleteContent(@Param('id', ParseIntPipe) id,
+    @GetUser() user: User): Promise<void> {
+        return this.contentsService.deleteContent(id, user);
     }
 
     //updateStatus parseintpipe는 파이프

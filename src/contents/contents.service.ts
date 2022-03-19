@@ -83,9 +83,10 @@ export class ContentsService {
     //     const found = this.getContentById(id);
     //     this.contents = this.contents.filter((content) => content.id !== found.id);
     // }
-    async deleteContent(id: number): Promise<void> {
-        const result = await this.contentRepository.delete(id);
-        //해당id가 없으면 에러메시지반환
+    //content의 id값과 user정보로 확인하기
+    async deleteContent(id: number, user: User): Promise<void> {
+        const result = await this.contentRepository.delete({ id, user });
+        //해당id가 없거나 user정보가 일치하지않으면 에러메시지반환
         if (result.affected === 0) {
             throw new NotFoundException(`Can't find Content with id ${id}`)
         }
