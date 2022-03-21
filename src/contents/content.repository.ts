@@ -1,4 +1,4 @@
-import { User } from "src/auth/user.entity";
+import { User } from "src/auth/entity/user.entity";
 import { EntityRepository, Repository } from "typeorm";
 import { ContentStatus } from "./content-status.enum";
 import { Content } from "./content.entity";

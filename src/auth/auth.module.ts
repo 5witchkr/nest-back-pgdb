@@ -5,8 +5,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
-import { UserRepository } from './user.repository';
+import { UserRepository } from './repository/user.repository';
 import * as config from 'config';
+import { UserAuthorityRepository } from './repository/user-authority.repository';
 
 const jwtConfig = config.get('jwt');
 
@@ -19,7 +20,7 @@ const jwtConfig = config.get('jwt');
         expiresIn: jwtConfig.expiresIn
       }
     }),
-    TypeOrmModule.forFeature([UserRepository])
+    TypeOrmModule.forFeature([UserRepository, UserAuthorityRepository])
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],

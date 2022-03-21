@@ -5,7 +5,7 @@ import { CreateContentDto } from './dto/create-content.dto';
 import { ContentRepository } from './content.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Content } from './content.entity';
-import { User } from 'src/auth/user.entity';
+import { User } from 'src/auth/entity/user.entity';
 
 
 @Injectable()
