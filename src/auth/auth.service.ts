@@ -1,9 +1,10 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException, UnsupportedMediaTypeException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AuthCredentialsDto } from './dto/auth-credential.dto';
 import { UserRepository } from './repository/user.repository';
 import * as bcrypt from  'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
+import { Payload } from './payload.interface';
 
 @Injectable()
 export class AuthService {
@@ -25,7 +26,8 @@ export class AuthService {
         //bcrypt compare로 비밀번호 대조
         if (user && (await bcrypt.compare(password, user.password))) {
             //유저 토큰생성 (secret + payload)
-            const payload = { username };
+            const payload: Payload = { 
+                username,};
             const accessToken = await this.jwtService.sign(payload);
 
             return { accessToken };
