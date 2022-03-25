@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException, UnsupportedMediaTypeException } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AuthCredentialsDto } from './dto/auth-credential.dto';
 import { UserRepository } from './repository/user.repository';
